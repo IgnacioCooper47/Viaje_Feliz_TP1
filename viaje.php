@@ -67,9 +67,20 @@ class Viaje{
         $this->pasajeros[$indice]["dni"] = $dni;
     }
 
+    public function mostrarArreglo(){
+        $arreglo = $this->pasajeros;
+        $cadena = "";
+        foreach ($arreglo as $indice => $subArreglo){
+            $cadena = $cadena . "\n\n Pasajero: ". $indice + 1 ." \n";
+            foreach($subArreglo as $clave => $valor){
+                $cadena = $cadena . $clave . ": " . $valor . " \n";
+            }
+        }
+        return $cadena;
+    }
 
     public function __toString(){
-        return "Codigo de viaje: " . $this->getCodigoDeViaje() . " \n El destino: " . $this->getDestino() . "\n Cantidad Maxima de pasajeros: " . $this->getCantMaxPasajeros() . "\n";
+        return "Codigo de viaje: " . $this->getCodigoDeViaje() . " \n El destino: " . $this->getDestino() . "\n Cantidad Maxima de pasajeros: " . $this->getCantMaxPasajeros() . "\n" . $this->mostrarArreglo();
     }
 
 }

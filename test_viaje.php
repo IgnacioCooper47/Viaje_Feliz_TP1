@@ -61,15 +61,6 @@ while ($opcion != 4){
                 echo "\n Primero debe cargar un viaje.";
             } else {
                 $resumen = $viaje-> __toString();
-                $arregloPasajeros = $viaje->getPasajeros();
-                $in = 0;
-                foreach ($arregloPasajeros as $persona){
-                    $in = $in + 1;
-                    echo "\n Pasajero: ". $in;
-                    echo "\n Nombre: " . $persona["nombre"];
-                    echo "\n Apellido: " . $persona["apellido"];
-                    echo "\n Numero de documento: " . $persona["dni"] . "\n";
-                }
                 echo $resumen;
             }
         break;
@@ -130,13 +121,13 @@ while ($opcion != 4){
                         break;
 
                         case 5:
-                            echo "Saliendo...";
+                            echo "\nSaliendo...\n\n";
                         break;
                     }
                 }
             }
         case 4: 
-            echo "Saliendo...";
+            echo "\nSaliendo...\n\n";
         break;
     }
 }
