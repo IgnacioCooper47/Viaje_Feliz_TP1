@@ -4,6 +4,8 @@ include "viaje.php";
 
 echo "\n\n Bienvenido a Viaje Feliz!\n\n";
 
+$viaje = null;
+
 $opcion = 0;
 
 while ($opcion != 4){
@@ -58,7 +60,7 @@ while ($opcion != 4){
         case 2:
             if ($viaje == null){
                 echo "\n No existe viaje registrado.";
-                echo "\n Primero debe cargar un viaje.";
+                echo "\n Primero debe cargar un viaje.\n\n";
             } else {
                 $resumen = $viaje-> __toString();
                 echo $resumen;
@@ -71,18 +73,20 @@ while ($opcion != 4){
                 echo "\n No existe viaje registrado.";
                 echo "\n Primero debe cargar un viaje.";
             }else {
-                while ($subOpcion != 5){
+                while ($subOpcion != 7){
                     echo "\n SELECCIONE QUE QUIERE MODIFICAR \n\n";
                     echo "1- Modificar el codigo de viaje. \n";
                     echo "2- Modificar el destino del viaje. \n";
                     echo "3- Modificar la cantidad maxima de pasajeros del viaje. \n";
                     echo "4- Modificar algun pasajero. \n";
-                    echo "5- Salir. \n";
+                    echo "5- Eliminar un pasajero. \n";
+                    echo "6- Eliminar un pasajero. \n";
+                    echo "7- Salir. \n";
                     
                     echo "Eliga una opción: ";
                     $subOpcion = trim(fgets(STDIN));
 
-                    if ($subOpcion > 5 || $subOpcion < 1) {
+                    if ($subOpcion > 7 || $subOpcion < 1) {
                         echo "\nOpcion invalida, vuelva a intentarlo\n";
                         continue; // Se salta el resto de la iteración y se vuelve al inicio del bucle while
                     }
@@ -119,8 +123,54 @@ while ($opcion != 4){
 
                            $viaje->modificarPasajero($n, $nombreNew, $apellidoNew, $dniNew);
                         break;
-
+                        
                         case 5:
+                            echo "\n Ingrese el numero del pasajero que quiere borrar.";
+                            echo "\n A continuacion le vamos a mostrar los pasajeros: \n";
+
+                            $arregloPasajeros = $viaje->getPasajeros();
+                            $in = 0;
+                            foreach ($arregloPasajeros as $persona){
+                                $in = $in + 1;
+                                echo "\n Pasajero: ". $in;
+                                echo "\n Nombre: " . $persona["nombre"];
+                                echo "\n Apellido: " . $persona["apellido"];
+                                echo "\n Numero de documento: " . $persona["dni"] . "\n";
+                            }
+                            
+                            echo "\nAhora diganos cual era el numero de pasajero para borrar: ";
+                            $nBorrar = trim(fgets(STDIN));
+                            
+                            while ($nBorrar > count($arregloPasajeros)){
+                                echo "\nNumero invalido, vuelva a ingresar el numero de pasajero...";
+                                echo "\nIngresar: ";
+                                $nBorrar = trim(fgets(STDIN));
+                            }
+                            $viaje->eliminaPasajero($nBorrar);
+
+                        break;
+
+                        case 6:
+                            $arregloPasajeros = $viaje->getPasajeros();
+
+                            if (count($arregloPasajeros) >= $viaje->getCantMaxPasajeros()){
+                                echo "\n No se puede agregar pasajeros, porque esta lleno.\n";
+                                echo "\n Modificar la cantidad maxima de pasajeros para poder agregar más.\n";
+                            }else {
+                                echo "\n ingrese los datos del nuevo pasajero...\n";
+                                echo "\nNombre: ";
+                                $newName = trim(fgets(STDIN));
+                                echo "\nApellido: ";
+                                $newSurname = trim(fgets(STDIN));
+                                echo "\nNumero de documento: ";
+                                $newDni = trim(fgets(STDIN));
+
+                                $resultadoAgregarPasajero = $viaje->nuevoPasajero($newName, $newSurname, $newDni);
+                                echo $resultadoAgregarPasajero;
+                            }
+                        break;
+                        
+                        case 7:
                             echo "\nSaliendo...\n\n";
                         break;
                     }

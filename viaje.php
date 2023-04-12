@@ -83,4 +83,30 @@ class Viaje{
         return "Codigo de viaje: " . $this->getCodigoDeViaje() . " \n El destino: " . $this->getDestino() . "\n Cantidad Maxima de pasajeros: " . $this->getCantMaxPasajeros() . "\n" . $this->mostrarArreglo();
     }
 
+    public function eliminaPasajero($indice){
+        $arreglo = $this->pasajeros;
+        $indice = $indice - 1;
+        unset($arreglo[$indice]);
+        $arreglo = array_values($arreglo);
+        $this->setPasajeros($arreglo);
+    }
+
+    public function nuevoPasajero($nombre, $apellido, $dni){
+        $arreglo = $this->pasajeros;
+        $max = $this->cantMaxPasajeros;
+        if ($max <= count($arreglo)){
+            $resultado = "No se puede ingresar un nuevo pasajero porque ya esta lleno.";
+        }else {
+            $arregloAgregar = [
+            "nombre" => $nombre,
+            "apellido" => $apellido,
+            "dni" => $dni
+            ];
+
+            array_push($arreglo, $arregloAgregar);
+            $this->setPasajeros($arreglo);
+            $resultado = "Se agrego el pasajero correctamente!";
+        }
+        return $resultado;
+    }
 }
