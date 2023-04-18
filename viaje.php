@@ -53,22 +53,28 @@ class Viaje{
     }
 
     public function agregarPasajero($nombre, $apellido, $dni, $indice){
-        $this->pasajeros[$indice] = array(
+        $arreglo = $this->getPasajeros();
+        $arreglo [$indice] = array(
             "nombre" => $nombre,
             "apellido" => $apellido,
             "dni" => $dni,
         );
+        $this->setPasajeros($arreglo);
     }
 
     public function modificarPasajero($indice, $nombre, $apellido, $dni){
         $indice = $indice - 1;
-        $this->pasajeros[$indice]["nombre"] = $nombre;
-        $this->pasajeros[$indice]["apellido"] = $apellido;
-        $this->pasajeros[$indice]["dni"] = $dni;
+        $arreglo = $this->getPasajeros();
+        $arreglo [$indice] = array(
+            "nombre" => $nombre,
+            "apellido" => $apellido,
+            "dni" => $dni,
+        );
+        $this->setPasajeros($arreglo);
     }
 
     public function mostrarArreglo(){
-        $arreglo = $this->pasajeros;
+        $arreglo = $this->getPasajeros();
         $cadena = "";
         foreach ($arreglo as $indice => $subArreglo){
             $cadena = $cadena . "\n\n Pasajero: ". $indice + 1 ." \n";
@@ -84,7 +90,7 @@ class Viaje{
     }
 
     public function eliminaPasajero($indice){
-        $arreglo = $this->pasajeros;
+        $arreglo = $this->getPasajeros();
         $indice = $indice - 1;
         unset($arreglo[$indice]);
         $arreglo = array_values($arreglo);
@@ -92,8 +98,8 @@ class Viaje{
     }
 
     public function nuevoPasajero($nombre, $apellido, $dni){
-        $arreglo = $this->pasajeros;
-        $max = $this->cantMaxPasajeros;
+        $arreglo = $this->getPasajeros();
+        $max = $this->getCantMaxPasajeros();
         if ($max <= count($arreglo)){
             $resultado = "No se puede ingresar un nuevo pasajero porque ya esta lleno.";
         }else {

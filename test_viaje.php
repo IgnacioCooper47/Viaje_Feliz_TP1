@@ -80,7 +80,7 @@ while ($opcion != 4){
                     echo "3- Modificar la cantidad maxima de pasajeros del viaje. \n";
                     echo "4- Modificar algun pasajero. \n";
                     echo "5- Eliminar un pasajero. \n";
-                    echo "6- Eliminar un pasajero. \n";
+                    echo "6- Agregar un pasajero. \n";
                     echo "7- Salir. \n";
                     
                     echo "Eliga una opción: ";
